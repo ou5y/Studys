@@ -1,0 +1,15 @@
+# 这些需要配置到bootstrap.yml中  application中不行(使用服务注册发现Config Server就可以了，只是这个直连host:port的不行)
+# didispace-dev.yml
+spring:
+  application:
+    name: didispace
+  cloud:
+    config:
+      profile: dev
+      label: master
+      # config server配置中心的地址(缺省：http://localhost:8888)
+      uri: http://localhost:7001
+
+
+server:
+  port: 7002

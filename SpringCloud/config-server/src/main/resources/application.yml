@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      # 在没有连接配置服务端时直接启动失败，为了调试方便，默认false
+      failFast: true
+      server:
+        git:
+          # 本地仓库，开发时候使用
+          # uri: file://${user.home.path}/config-repo
+          # Git的远程仓库
+          uri: https://github.com/ou5y/SpringCloudConfiguration.git
+          search-paths: dev/,prod/
+          username: 977945732@qq.com
+          password: Kobe125800
+
+
+server:
+  port: 7001
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/

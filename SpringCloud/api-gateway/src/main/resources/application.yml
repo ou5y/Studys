@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 5555
+
+zuul:
+  routes:
+    # api-a-url为路由器的名字
+    api-a-url:
+      # 被拦截的地址
+      path: /api-a-url/**
+      # 面向URL的路由
+      # 拦截的地址被转发的地址
+      # 比如访问http://localhost:5555/api-a-url/hello
+      # 会被转发到http://localhost:8080/hello
+      url: http://localhost:8080/
+    api-a:
+      # 面向服务的路由
+      # 拦截的地址被转发的地址
+      # 比如访问http://localhost:5555/api-a/hello
+      # 会被转发到hello-service服务的/hello地址
+      path: /api-a/**
+      serviceId: hello-service
+    api-b:
+      path: /api-b/**
+      serviceId: feign-consumer
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/

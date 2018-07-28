@@ -1,0 +1,17 @@
+.classpath
+.idea
+.svn
+.settings
+.project
+.mymetadata
+.jazzignore
+.tern-project
+target
+*.iml
+*/bin/
+*/gen/
+*/out/
+*/build/
+*/classes/
+*/target/
+*/.settings/

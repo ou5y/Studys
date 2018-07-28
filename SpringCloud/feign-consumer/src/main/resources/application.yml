@@ -1,0 +1,60 @@
+server:
+  port: 9001
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    appname: feign-consumer
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/
+
+
+# 因为Feign脱胎于Ribbon所以可以直接配置Ribbon的属性——全局设置
+ribbon:
+  # ribbon请求连接的超时时间
+  ConnectTimeout: 5000
+  # 请求处理的超时时间
+  ReadTimeout: 5000
+  # 对当前实例的重试次数
+  MaxAutoRetries: 1
+  # 对下个实例的重试次数
+  MaxAutoRetriesNextServer: 2
+  # 对所有操作请求都进行重试
+  OkToRetryOnAllOperations: true
+
+# ribbon支持对单个服务进行服务配置
+# 规则：<client>.ribbon.key = value
+# 对hello-service服务进行单独配置
+hello-service:
+  ribbon:
+    ConnectTimeout: 1500
+    ReadTimeout: 1500
+
+
+feign:
+  hystrix:
+    # 在feign中关闭Hystrix容错， 这儿先打开
+    enabled: true
+  compression:
+    request:
+      # 对请求或者响应进行GZIP压缩，以减少通讯过程中的性能损耗
+      min-request-size: 2048
+      mime-types: text/xml,application/json,application/xml
+
+
+
+hystrix:
+  command:
+    # 这个default支持<commandKey>, 这个commandKey默认采用Feign客户端中的方法名作为标识比如：
+    # UserService中的：postUserByNameAge（被@FeignClient修饰过得客户端）
+    default:
+      execution:
+        timeout:
+          # 关闭Hystrix容错， 这儿先打开
+          enabled: true
+        isolation:
+          thread:
+            # Hystrix全局默认超时时间
+            timeoutInMilliseconds: 2000

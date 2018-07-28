@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.UserDao">
+
+    <select id="query" resultType="com.example.demo.entity.User">
+        SELECT * FROM USER;
+    </select>
+
+    <select id="get" resultType="com.example.demo.entity.User">
+        SELECT * FROM USER WHERE id = #{id};
+    </select>
+
+    <select id="getByEntity" resultType="com.example.demo.entity.User">
+        SELECT * FROM USER
+        <where>
+            <if test="entity!=null and entity.id!=null and entity.id>0">
+                AND id = #{entity.id}
+            </if>
+            <if test="entity!=null and entity.name!=null and entity.name!=''">
+                AND name = #{entity.name}
+            </if>
+            <if test="entity!=null and entity.sex!=null and entity.sex!=''">
+                AND sex = #{entity.sex}
+            </if>
+            <if test="entity!=null and entity.age!=null">
+                AND age = #{entity.age}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,27 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1111/eureka/
+
+
+spring:
+  cloud:
+    config:
+      discovery:
+        # 开启访问Config Server功能默认false
+        enabled: true
+        # Config Server的服务名
+        serviceId: config-server
+      # Config Server的${profile}
+      profile: dev
+      retry:
+        # 初始重试的时间间隔（缺省1000ms）
+        multiplier: 10000
+        # 下一个间隔的乘数，比如上次是1s 下次的重试时间就是1s * 1.1 = 1.1s
+        initialInterval: 1.1
+        # 最大的间隔时间（缺省2000ms）
+        maxInterval: 30000
+        # 最大的重试次数（缺省6）
+        maxAttempts: 8
+
+
